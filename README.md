@@ -11,22 +11,37 @@ A complete Python project simulating a University securely delivering a student'
    - Windows: `venv\Scripts\activate`
    - Linux/Mac: `source venv/bin/activate`
 
-## Usage
+## Usage (Graphical Interface - Recommended)
 
-Generate mock data first:
+We have built a modern graphical interface to visually demonstrate the cryptography concepts.
+
+**Phase 1: Cryptography Dashboard**
+To test basic file encryption (AES vs 3-DES) and visually demonstrate ECB vs CBC image pattern leakage side-by-side:
+```bash
+python pipeline/gui_phase1.py
+```
+
+**Phase 5: Secure Client/Server TCP Exchange**
+To simulate the secure transcript delivery over a network with Diffie-Hellman Key Exchange and Digital Signatures:
+1. Open a terminal and start the University Server:
+   ```bash
+   python pipeline/gui_server.py
+   ```
+2. Open a *second* terminal and start the Student Client:
+   ```bash
+   python pipeline/gui_client.py
+   ```
+
+---
+
+## Usage (Command Line Interface)
+
+If you prefer to run the scripts headlessly, generate the mock data first:
 ```bash
 python data/generate_mock_data.py
 ```
 
-Run individual phases or the full integration pipeline. The integration pipeline simulates communication over sockets.
-
-```bash
-# Run server
-python pipeline/university_server.py
-# In a separate terminal, run client
-python pipeline/student_client.py
-```
-Or use the orchestrator:
+Run the full integration pipeline via the CLI orchestrator:
 ```bash
 python pipeline/run_pipeline.py
 ```
