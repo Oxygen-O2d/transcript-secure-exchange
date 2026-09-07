@@ -1,0 +1,16 @@
+# Virtual environment
+venv/
+__pycache__/
+*.pyc
+
+# Logs and outputs
+logs/
+data/*.txt
+data/*.bmp
+data/*.png
+data/*.csv
+!data/generate_mock_data.py
+*.key
+*.pem
+*.der
+*.crt
