@@ -11,18 +11,41 @@ A complete Python project simulating a University securely delivering a student'
    - Windows: `venv\Scripts\activate`
    - Linux/Mac: `source venv/bin/activate`
 
-## Usage (Graphical Interface - Recommended)
+## Usage (Web Interface - New & Recommended)
 
-We have built a modern graphical interface to visually demonstrate the cryptography concepts.
+We have built a modern Web-based dashboard to visually demonstrate the cryptography concepts.
+
+### 1. Start the Backend API
+The web dashboard relies on a Python FastAPI server to perform cryptographic operations.
+1. Open a terminal and ensure your virtual environment is activated.
+2. Start the server:
+   ```bash
+   python backend/app.py
+   ```
+   *The server will run at `http://127.0.0.1:8000`.*
+
+### 2. Open the Frontend
+1. Open your File Explorer.
+2. Navigate to the `frontend` directory in this project.
+3. Double-click on `index.html` to open the secure dashboard in your default web browser.
+
+**Features Available in the Web Dashboard:**
+- **Phase 1: Cryptography Dashboard:** Test file encryption and visually demonstrate ECB vs CBC image pattern leakage.
+- **Phase 5: Secure Exchange Simulation:** Simulate transcript delivery with Diffie-Hellman and Digital Signatures via real-time WebSocket logs.
+
+---
+
+## Usage (Legacy Desktop GUI)
+
+If you prefer to use the older Python `customtkinter` interface:
 
 **Phase 1: Cryptography Dashboard**
-To test basic file encryption (AES vs 3-DES) and visually demonstrate ECB vs CBC image pattern leakage side-by-side:
 ```bash
 python pipeline/gui_phase1.py
 ```
 
 **Phase 5: Secure Client/Server TCP Exchange**
-To simulate the secure transcript delivery over a network with Diffie-Hellman Key Exchange and Digital Signatures:
+To simulate the secure transcript delivery over a network:
 1. Open a terminal and start the University Server:
    ```bash
    python pipeline/gui_server.py

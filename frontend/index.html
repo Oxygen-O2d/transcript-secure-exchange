@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Academic Transcript Exchange</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">🔒</div>
+                <h2>CipherNet</h2>
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-target="dashboard">
+                    <span class="icon">📊</span> Phase 1: Dashboard
+                </li>
+                <li data-target="simulation">
+                    <span class="icon">🔄</span> Phase 5: Simulation
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="content">
+            <header>
+                <h1>Cryptography Dashboard</h1>
+                <p>Test encryption algorithms and visualize cipher modes.</p>
+            </header>
+
+            <div id="dashboard" class="view-section active">
+                <div class="cards-grid">
+                    <!-- File Encryption Card -->
+                    <div class="card glass">
+                        <h3>File Encryption (AES vs 3-DES)</h3>
+                        <p>Upload a file to encrypt it with AES-128 and 3-DES CBC modes and compare performance.</p>
+                        
+                        <div class="upload-area" id="file-upload-area">
+                            <input type="file" id="file-input" hidden>
+                            <label for="file-input" class="upload-btn">Choose File</label>
+                            <span id="file-name">No file selected</span>
+                        </div>
+                        
+                        <button id="encrypt-file-btn" class="action-btn" disabled>Encrypt File</button>
+
+                        <div class="results-box hidden" id="file-results">
+                            <div class="result-item">
+                                <h4>AES-128 CBC</h4>
+                                <p>Time: <span id="aes-time" class="highlight">0.00s</span></p>
+                                <p>Size: <span id="aes-size">0 bytes</span></p>
+                            </div>
+                            <div class="result-item">
+                                <h4>3-DES CBC</h4>
+                                <p>Time: <span id="des-time" class="highlight">0.00s</span></p>
+                                <p>Size: <span id="des-size">0 bytes</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Image ECB vs CBC Leakage Card -->
+                    <div class="card glass">
+                        <h3>ECB vs CBC Pattern Leakage</h3>
+                        <p>Upload an image to visually demonstrate why Electronic Codebook (ECB) mode is vulnerable.</p>
+                        
+                        <div class="upload-area" id="image-upload-area">
+                            <input type="file" id="image-input" accept="image/*" hidden>
+                            <label for="image-input" class="upload-btn">Choose Image</label>
+                            <span id="image-name">No image selected</span>
+                        </div>
+
+                        <button id="encrypt-image-btn" class="action-btn" disabled>Encrypt Image</button>
+                    </div>
+                </div>
+
+                <!-- Image Results Full Width -->
+                <div class="image-results-container hidden" id="image-results">
+                    <div class="img-box">
+                        <h4>Original Image</h4>
+                        <img id="img-orig" src="" alt="Original">
+                    </div>
+                    <div class="img-box error-border">
+                        <h4>ECB Mode <span class="badge danger">Vulnerable</span></h4>
+                        <img id="img-ecb" src="" alt="ECB Encrypted">
+                    </div>
+                    <div class="img-box success-border">
+                        <h4>CBC Mode <span class="badge success">Secure</span></h4>
+                        <img id="img-cbc" src="" alt="CBC Encrypted">
+                    </div>
+                </div>
+            </div>
+
+            <div id="simulation" class="view-section">
+                <div class="simulation-container">
+                    <div class="server-side glass">
+                        <h3>University Server</h3>
+                        <div class="terminal" id="server-terminal">
+                            <!-- Logs will appear here -->
+                            <div class="log-line">Waiting for connection...</div>
+                        </div>
+                    </div>
+                    <div class="client-side glass">
+                        <h3>Student Client</h3>
+                        <div class="terminal" id="client-terminal">
+                            <!-- Logs will appear here -->
+                            <div class="log-line">Disconnected.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls-bar">
+                    <button id="start-simulation" class="action-btn primary">Initiate Secure Exchange</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
