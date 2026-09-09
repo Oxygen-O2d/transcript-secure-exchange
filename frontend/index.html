@@ -16,10 +16,19 @@
                 <h2>CipherNet</h2>
             </div>
             <ul class="nav-links">
-                <li class="active" data-target="dashboard">
-                    <span class="icon">📊</span> Phase 1: Dashboard
+                <li class="active" data-target="phase1">
+                    <span class="icon">📊</span> Phase 1: Symmetric
                 </li>
-                <li data-target="simulation">
+                <li data-target="phase2">
+                    <span class="icon">🔑</span> Phase 2: Asymmetric
+                </li>
+                <li data-target="phase3">
+                    <span class="icon">🛡️</span> Phase 3: Integrity
+                </li>
+                <li data-target="phase4">
+                    <span class="icon">📜</span> Phase 4: Auth & PKI
+                </li>
+                <li data-target="phase5">
                     <span class="icon">🔄</span> Phase 5: Simulation
                 </li>
             </ul>
@@ -28,25 +37,23 @@
         <!-- Main Content Area -->
         <main class="content">
             <header>
-                <h1>Cryptography Dashboard</h1>
-                <p>Test encryption algorithms and visualize cipher modes.</p>
+                <h1 id="page-title">Phase 1: Symmetric Cryptography</h1>
+                <p id="page-desc">Test encryption algorithms, visualize cipher modes, and observe the avalanche effect.</p>
             </header>
 
-            <div id="dashboard" class="view-section active">
+            <!-- Phase 1: Symmetric Cryptography -->
+            <div id="phase1" class="view-section active">
                 <div class="cards-grid">
-                    <!-- File Encryption Card -->
+                    <!-- File Encryption Benchmark Card -->
                     <div class="card glass">
                         <h3>File Encryption (AES vs 3-DES)</h3>
                         <p>Upload a file to encrypt it with AES-128 and 3-DES CBC modes and compare performance.</p>
-                        
                         <div class="upload-area" id="file-upload-area">
                             <input type="file" id="file-input" hidden>
                             <label for="file-input" class="upload-btn">Choose File</label>
                             <span id="file-name">No file selected</span>
                         </div>
-                        
                         <button id="encrypt-file-btn" class="action-btn" disabled>Encrypt File</button>
-
                         <div class="results-box hidden" id="file-results">
                             <div class="result-item">
                                 <h4>AES-128 CBC</h4>
@@ -61,18 +68,48 @@
                         </div>
                     </div>
 
-                    <!-- Image ECB vs CBC Leakage Card -->
+                    <!-- Avalanche Effect Card -->
+                    <div class="card glass">
+                        <h3>Avalanche Effect Test (AES-128)</h3>
+                        <p>Observe how a 1-bit change in plaintext drastically alters the ciphertext.</p>
+                        <div class="input-group">
+                            <input type="text" id="avalanche-input" placeholder="Enter plaintext to encrypt" class="text-input">
+                        </div>
+                        <button id="avalanche-btn" class="action-btn">Calculate Avalanche Effect</button>
+                        <div class="results-box hidden" id="avalanche-results">
+                            <div class="result-item">
+                                <h4>Plaintext Bit Flip</h4>
+                                <p>Diff: <span id="ava-pt-diff">0</span> bits</p>
+                                <p>Change: <span id="ava-pt-percent" class="highlight">0%</span></p>
+                            </div>
+                            <div class="result-item">
+                                <h4>Key Bit Flip</h4>
+                                <p>Diff: <span id="ava-key-diff">0</span> bits</p>
+                                <p>Change: <span id="ava-key-percent" class="highlight">0%</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Image ECB vs CBC Card -->
                     <div class="card glass">
                         <h3>ECB vs CBC Pattern Leakage</h3>
-                        <p>Upload an image to visually demonstrate why Electronic Codebook (ECB) mode is vulnerable.</p>
-                        
+                        <p>Upload an image to demonstrate why ECB mode is vulnerable to pattern leakage.</p>
                         <div class="upload-area" id="image-upload-area">
                             <input type="file" id="image-input" accept="image/*" hidden>
                             <label for="image-input" class="upload-btn">Choose Image</label>
                             <span id="image-name">No image selected</span>
                         </div>
+                        <button id="encrypt-image-btn" class="action-btn" disabled>Process Image</button>
+                    </div>
 
-                        <button id="encrypt-image-btn" class="action-btn" disabled>Encrypt Image</button>
+                    <!-- Payload Benchmark Card -->
+                    <div class="card glass">
+                        <h3>Payload Size Benchmarks</h3>
+                        <p>Run automated benchmarks comparing AES vs 3-DES across various payload sizes (10KB, 100KB, 1MB).</p>
+                        <button id="run-benchmark-btn" class="action-btn">Run Benchmarks</button>
+                        <div class="terminal hidden" id="benchmark-terminal"></div>
                     </div>
                 </div>
 
@@ -93,25 +130,97 @@
                 </div>
             </div>
 
-            <div id="simulation" class="view-section">
+            <!-- Phase 2: Asymmetric Cryptography -->
+            <div id="phase2" class="view-section">
+                <div class="cards-grid">
+                    <div class="card glass">
+                        <h3>Diffie-Hellman & MITM Attack</h3>
+                        <p>Simulate DH key exchange and observe Eve intercepting unauthenticated exchanges.</p>
+                        <button id="dh-btn" class="action-btn">Simulate Key Exchange</button>
+                        <div class="terminal hidden" id="dh-terminal"></div>
+                    </div>
+
+                    <div class="card glass">
+                        <h3>RSA Hybrid Encryption</h3>
+                        <p>Generate an AES session key and encapsulate it securely using RSA public-key cryptography.</p>
+                        <button id="rsa-hybrid-btn" class="action-btn">Test Hybrid Encryption</button>
+                        <div class="terminal hidden" id="rsa-hybrid-terminal"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3: Integrity -->
+            <div id="phase3" class="view-section">
+                <div class="cards-grid">
+                    <div class="card glass">
+                        <h3>SHA-256 Hashing</h3>
+                        <p>Compute cryptographic hashes to guarantee data integrity.</p>
+                        <div class="input-group">
+                            <textarea id="hash-input" class="text-input" rows="3" placeholder="Enter text to hash..."></textarea>
+                        </div>
+                        <button id="hash-btn" class="action-btn">Compute Hash</button>
+                        <div class="terminal hidden" id="hash-terminal"></div>
+                    </div>
+
+                    <div class="card glass">
+                        <h3>Tamper Detection</h3>
+                        <p>Simulate a tampering attempt where a bit/byte is flipped in transit.</p>
+                        <div class="input-group">
+                            <textarea id="tamper-input" class="text-input" rows="2" placeholder="Original data..."></textarea>
+                        </div>
+                        <button id="tamper-btn" class="action-btn">Simulate Tampering</button>
+                        <div class="terminal hidden" id="tamper-terminal"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 4: Authentication & PKI -->
+            <div id="phase4" class="view-section">
+                <div class="cards-grid">
+                    <div class="card glass">
+                        <h3>Digital Signatures</h3>
+                        <p>Sign data with RSA private key and verify authenticity with public key.</p>
+                        <div class="input-group">
+                            <input type="text" id="sig-input" class="text-input" placeholder="Data to sign">
+                        </div>
+                        <button id="signature-btn" class="action-btn">Sign & Verify</button>
+                        <div class="terminal hidden" id="signature-terminal"></div>
+                    </div>
+
+                    <div class="card glass">
+                        <h3>X.509 Certificates</h3>
+                        <p>Generate and view self-signed Root CA and University digital certificates.</p>
+                        <button id="cert-btn" class="action-btn">Issue Certificate</button>
+                        <div class="terminal hidden" id="cert-terminal"></div>
+                    </div>
+                    
+                    <div class="card glass">
+                        <h3>Kerberos Authentication</h3>
+                        <p>Simulate ticket-granting authentication flow for secure access.</p>
+                        <button id="kerberos-btn" class="action-btn">Run Kerberos Flow</button>
+                        <div class="terminal hidden" id="kerberos-terminal"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 5: Pipeline Simulation -->
+            <div id="phase5" class="view-section">
                 <div class="simulation-container">
                     <div class="server-side glass">
-                        <h3>University Server</h3>
+                        <h3>University Server (Sender)</h3>
                         <div class="terminal" id="server-terminal">
-                            <!-- Logs will appear here -->
                             <div class="log-line">Waiting for connection...</div>
                         </div>
                     </div>
                     <div class="client-side glass">
-                        <h3>Student Client</h3>
+                        <h3>Student Client (Receiver)</h3>
                         <div class="terminal" id="client-terminal">
-                            <!-- Logs will appear here -->
                             <div class="log-line">Disconnected.</div>
                         </div>
                     </div>
                 </div>
                 <div class="controls-bar">
-                    <button id="start-simulation" class="action-btn primary">Initiate Secure Exchange</button>
+                    <button id="start-simulation" class="action-btn primary" style="max-width: 300px; margin: 0 auto;">Initiate Secure Exchange</button>
                 </div>
             </div>
         </main>
