@@ -3,7 +3,6 @@
 A comprehensive Python project simulating a University securely delivering a student's transcript by guiding you through all core pillars of cryptography: Symmetric Encryption, Asymmetric Key Exchange, Integrity, and Authentication (PKI/Kerberos).
 
 ## 📖 How This Works (A Guide for Non-IT Backgrounds)
-
 Imagine a University trying to send a highly sensitive academic transcript to a student over the internet. You need to guarantee three things:
 1. No one else can read it (**Confidentiality**).
 2. No one can secretly change the grades while it is in transit (**Integrity**).
