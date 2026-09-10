@@ -61,3 +61,37 @@ Once the browser opens, use the sidebar to navigate through the project phases.
 ### Phase 5: Pipeline
 - Navigate to Phase 5 and click the big **Start Full Transmission Simulation** button.
 - Sit back and watch the live console as it automates the Kerberos Auth -> DH Key Exchange -> Transcript Hashing & Signing -> AES Encryption -> Transmission -> Decryption -> Hash & Signature Verification sequence!
+
+## 4. Automated UI Testing (Playwright)
+
+We have built a custom Node.js Playwright suite that will automatically drive the UI, clicking buttons and demonstrating the cryptographic lab for you!
+
+### Step 4a: Setup Playwright (First Time Only)
+Open a new terminal (keep the backend API running in the other) and run these commands to install Playwright from scratch:
+
+```powershell
+# 1. Navigate to the playwright directory
+cd "d:\Study\Sem 7\Information Security (3170720)\Cipat\transcript-secure-exchange\playwright"
+
+# 2. Install Node dependencies (this installs the playwright JS library)
+npm install
+
+# 3. Download the browsers that Playwright needs to open Chrome
+npx playwright install
+```
+
+### Step 4b: Run the Automated Demos
+Once installed, make sure your Python API is running (`python backend/app.py`), then use any of the following commands from inside the `playwright` folder:
+
+```powershell
+# Run the complete project demonstration (Phase 1 through 5)
+npm run test:full
+
+# Run individual phase demonstrations
+npm run test:phase1
+npm run test:phase2
+npm run test:phase3
+npm run test:phase4
+npm run test:phase5
+```
+*(The scripts automatically generate the dummy `txt` and `png` files needed for the tests, so you don't need to provide any!)*
