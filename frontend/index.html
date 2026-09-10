@@ -3,228 +3,617 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Academic Transcript Exchange</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <title>CipherNet Academic Security Lab</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="app-container">
-        <!-- Sidebar Navigation -->
-        <nav class="sidebar">
-            <div class="logo">
-                <div class="logo-icon">🔒</div>
-                <h2>CipherNet</h2>
+    
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="sidebar-title">🛡️ CIPHERNET</h1>
+            <div class="sidebar-subtitle">Academic Security Lab</div>
+        </div>
+        
+        <div class="sidebar-content">
+            <div class="sidebar-section-title">MAIN</div>
+            <a class="nav-item active" onclick="nav('home', this)">
+                <div class="nav-icon-col">◉</div>
+                <div class="nav-text-col">
+                    <div class="nav-main-title">Dashboard</div>
+                </div>
+            </a>
+
+            <div class="sidebar-section-title" style="margin-top:20px;">SECURITY PHASES</div>
+            
+            <a class="nav-item" onclick="nav('phase1', this)">
+                <div class="nav-icon-col">01</div>
+                <div class="nav-text-col">
+                    <div class="nav-main-title">Symmetric Encryption</div>
+                    <div class="nav-sub-title">AES / 3-DES</div>
+                    <div class="nav-status">AVAILABLE</div>
+                </div>
+            </a>
+            
+            <a class="nav-item" onclick="nav('phase2', this)">
+                <div class="nav-icon-col">02</div>
+                <div class="nav-text-col">
+                    <div class="nav-main-title">Asymmetric & Key Exchange</div>
+                    <div class="nav-sub-title">RSA / DH</div>
+                    <div class="nav-status">AVAILABLE</div>
+                </div>
+            </a>
+            
+            <a class="nav-item" onclick="nav('phase3', this)">
+                <div class="nav-icon-col">03</div>
+                <div class="nav-text-col">
+                    <div class="nav-main-title">Integrity Verification</div>
+                    <div class="nav-sub-title">SHA-256</div>
+                    <div class="nav-status">AVAILABLE</div>
+                </div>
+            </a>
+            
+            <a class="nav-item" onclick="nav('phase4', this)">
+                <div class="nav-icon-col">04</div>
+                <div class="nav-text-col">
+                    <div class="nav-main-title">Authentication</div>
+                    <div class="nav-sub-title">Signature / X.509 / Kerberos</div>
+                    <div class="nav-status">AVAILABLE</div>
+                </div>
+            </a>
+            
+            <a class="nav-item" onclick="nav('phase5', this)">
+                <div class="nav-icon-col">05</div>
+                <div class="nav-text-col">
+                    <div class="nav-main-title">Secure Exchange Pipeline</div>
+                    <div class="nav-sub-title">University → Student</div>
+                    <div class="nav-status">AVAILABLE</div>
+                </div>
+            </a>
+
+            <div class="sidebar-section-title" style="margin-top:20px;">SECURITY ANALYSIS</div>
+            
+            <a class="nav-item" onclick="nav('attack', this)">
+                <div class="nav-icon-col">⚔</div>
+                <div class="nav-text-col"><div class="nav-main-title">Attack Lab</div></div>
+            </a>
+            
+            <a class="nav-item" onclick="nav('packet', this)">
+                <div class="nav-icon-col">📡</div>
+                <div class="nav-text-col"><div class="nav-main-title">Packet Analysis</div></div>
+            </a>
+            
+            <a class="nav-item" onclick="nav('compare', this)">
+                <div class="nav-icon-col">📊</div>
+                <div class="nav-text-col"><div class="nav-main-title">Algorithm Comparison</div></div>
+            </a>
+
+        </div>
+        
+        <div class="sidebar-footer">
+            <span class="status-indicator"></span> SESSION ACTIVE<br>
+            <span style="color:var(--muted-text); margin-left:16px;">CN-2026-001</span>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+        <div class="hero-bg"></div>
+        
+        <!-- Topbar -->
+        <header class="topbar">
+            <div class="topbar-left" id="top-title">
+                SYSTEM TERMINAL // DASHBOARD
             </div>
-            <ul class="nav-links">
-                <li class="active" data-target="phase1">
-                    <span class="icon">📊</span> Phase 1: Symmetric
-                </li>
-                <li data-target="phase2">
-                    <span class="icon">🔑</span> Phase 2: Asymmetric
-                </li>
-                <li data-target="phase3">
-                    <span class="icon">🛡️</span> Phase 3: Integrity
-                </li>
-                <li data-target="phase4">
-                    <span class="icon">📜</span> Phase 4: Auth & PKI
-                </li>
-                <li data-target="phase5">
-                    <span class="icon">🔄</span> Phase 5: Simulation
-                </li>
-            </ul>
-        </nav>
+            <div class="topbar-right">
+                <span class="text-success">● ENCRYPTED</span>
+                <span>🔐 SECURE SESSION</span>
+                <label class="theme-switch" for="theme-toggle">
+                    <input type="checkbox" id="theme-toggle" onchange="toggleTheme(this)">
+                    <div class="slider"></div>
+                </label>
+            </div>
+        </header>
+        
+        <!-- Scrollable Content -->
+        <main class="content-area">
 
-        <!-- Main Content Area -->
-        <main class="content">
-            <header>
-                <h1 id="page-title">Phase 1: Symmetric Cryptography</h1>
-                <p id="page-desc">Test encryption algorithms, visualize cipher modes, and observe the avalanche effect.</p>
-            </header>
+            <!-- HOME / DASHBOARD -->
+            <div id="home" class="page active">
+                <h1 style="font-size:32px; margin-bottom: 5px;">SECURE ACADEMIC TRANSCRIPT EXCHANGE</h1>
+                <h3 class="text-secondary" style="color:var(--secondary-text); margin-bottom:30px;">University → Student</h3>
+                
+                <p style="font-size:16px; line-height:1.6; max-width:800px; margin-bottom:40px;">
+                    CipherNet demonstrates how an academic transcript or result document can be protected using symmetric encryption, secure key exchange, integrity verification, and authentication.
+                </p>
 
-            <!-- Phase 1: Symmetric Cryptography -->
-            <div id="phase1" class="view-section active">
-                <div class="cards-grid">
-                    <!-- File Encryption Benchmark Card -->
-                    <div class="card glass">
-                        <h3>File Encryption (AES vs 3-DES)</h3>
-                        <p>Upload a file to encrypt it with AES-128 and 3-DES CBC modes and compare performance.</p>
-                        <div class="upload-area" id="file-upload-area">
-                            <input type="file" id="file-input" hidden>
-                            <label for="file-input" class="upload-btn">Choose File</label>
-                            <span id="file-name">No file selected</span>
+                <div class="grid-2">
+                    <!-- Security Flow -->
+                    <div class="card">
+                        <div class="card-title">SECURE PROCESSING FLOW</div>
+                        <div class="flow-vertical">
+                            <div style="font-size:30px;">🏫</div>
+                            <div class="mono text-cyan">UNIVERSITY</div>
+                            <div class="flow-arrow-down"></div>
+                            <div class="flow-node">📄 Academic Transcript</div>
+                            <div class="flow-arrow-down"></div>
+                            <div class="flow-node" style="border-color:var(--success)">🔐 Secure Processing</div>
+                            <div class="flow-arrow-down"></div>
+                            <div class="flow-node" style="background:rgba(0,229,255,0.1)">🔒 Encrypted Channel</div>
+                            <div class="flow-arrow-down"></div>
+                            <div class="mono text-cyan">STUDENT</div>
+                            <div style="font-size:30px;">👨‍🎓</div>
                         </div>
-                        <button id="encrypt-file-btn" class="action-btn" disabled>Encrypt File</button>
-                        <div class="results-box hidden" id="file-results">
-                            <div class="result-item">
-                                <h4>AES-128 CBC</h4>
-                                <p>Time: <span id="aes-time" class="highlight">0.00s</span></p>
-                                <p>Size: <span id="aes-size">0 bytes</span></p>
-                            </div>
-                            <div class="result-item">
-                                <h4>3-DES CBC</h4>
-                                <p>Time: <span id="des-time" class="highlight">0.00s</span></p>
-                                <p>Size: <span id="des-size">0 bytes</span></p>
-                            </div>
-                        </div>
+                        <div class="text-success mono" style="text-align:center; margin-top:20px;">● SECURE CHANNEL READY</div>
                     </div>
 
-                    <!-- Avalanche Effect Card -->
-                    <div class="card glass">
-                        <h3>Avalanche Effect Test (AES-128)</h3>
-                        <p>Observe how a 1-bit change in plaintext drastically alters the ciphertext.</p>
-                        <div class="input-group">
-                            <input type="text" id="avalanche-input" placeholder="Enter plaintext to encrypt" class="text-input">
+                    <!-- Transcript Preview -->
+                    <div class="card">
+                        <div class="card-title">DOCUMENT PREVIEW</div>
+                        <div style="background:var(--bg-color); border:1px solid var(--border-color); padding:20px; font-family:'JetBrains Mono', monospace; font-size:13px; line-height:1.8;">
+                            <div style="text-align:center; font-weight:bold; font-size:16px; margin-bottom:15px; color:var(--main-text)">
+                                ACADEMIC TRANSCRIPT<br>CIPHERNET UNIVERSITY
+                            </div>
+                            <span class="text-muted">Student Name:</span> <span style="color:var(--main-text)">Rahul Patel</span><br>
+                            <span class="text-muted">Enrollment No:</span> <span style="color:var(--main-text)">23CE1042</span><br>
+                            <span class="text-muted">Program:</span> <span style="color:var(--main-text)">B.E. Computer Engineering</span><br>
+                            <span class="text-muted">Semester:</span> <span style="color:var(--main-text)">VII</span><br>
+                            <span class="text-muted">Academic Year:</span> <span style="color:var(--main-text)">2026</span><br>
+                            <br>
+                            <span class="text-muted">Subjects:</span><br>
+                            - Information Security<br>
+                            - Computer Networks<br>
+                            - Cyber Security<br>
+                            <br>
+                            <span class="text-muted">SGPA:</span> <span style="color:var(--main-text)">8.42</span><br>
+                            <span class="text-muted">Result:</span> <span class="text-success" style="font-weight:bold;">PASS</span>
                         </div>
-                        <button id="avalanche-btn" class="action-btn">Calculate Avalanche Effect</button>
-                        <div class="results-box hidden" id="avalanche-results">
-                            <div class="result-item">
-                                <h4>Plaintext Bit Flip</h4>
-                                <p>Diff: <span id="ava-pt-diff">0</span> bits</p>
-                                <p>Change: <span id="ava-pt-percent" class="highlight">0%</span></p>
-                            </div>
-                            <div class="result-item">
-                                <h4>Key Bit Flip</h4>
-                                <p>Diff: <span id="ava-key-diff">0</span> bits</p>
-                                <p>Change: <span id="ava-key-percent" class="highlight">0%</span></p>
-                            </div>
+                        <div style="margin-top:20px; font-size:12px;" class="mono text-muted">
+                            DOCUMENT STATUS<br>
+                            <span class="text-success">● ORIGINAL</span><br>
+                            <span class="text-cyan">● READY FOR SECURE TRANSFER</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="cards-grid">
-                    <!-- Image ECB vs CBC Card -->
-                    <div class="card glass">
-                        <h3>ECB vs CBC Pattern Leakage</h3>
-                        <p>Upload an image to demonstrate why ECB mode is vulnerable to pattern leakage.</p>
-                        <div class="upload-area" id="image-upload-area">
-                            <input type="file" id="image-input" accept="image/*" hidden>
-                            <label for="image-input" class="upload-btn">Choose Image</label>
-                            <span id="image-name">No image selected</span>
-                        </div>
-                        <button id="encrypt-image-btn" class="action-btn" disabled>Process Image</button>
+                <!-- Status Cards -->
+                <div class="grid-4" style="margin-top:20px;">
+                    <div class="card" style="padding:15px;">
+                        <div class="mono text-muted" style="font-size:11px;">🔐 CONFIDENTIALITY</div>
+                        <div style="font-size:18px; margin:5px 0;">AES-128</div>
+                        <div class="mono text-success" style="font-size:11px;">● READY</div>
                     </div>
-
-                    <!-- Payload Benchmark Card -->
-                    <div class="card glass">
-                        <h3>Payload Size Benchmarks</h3>
-                        <p>Run automated benchmarks comparing AES vs 3-DES across various payload sizes (10KB, 100KB, 1MB).</p>
-                        <button id="run-benchmark-btn" class="action-btn">Run Benchmarks</button>
-                        <div class="terminal hidden" id="benchmark-terminal"></div>
+                    <div class="card" style="padding:15px;">
+                        <div class="mono text-muted" style="font-size:11px;">🔑 KEY EXCHANGE</div>
+                        <div style="font-size:18px; margin:5px 0;">RSA / DH</div>
+                        <div class="mono text-success" style="font-size:11px;">● READY</div>
                     </div>
-                </div>
-
-                <!-- Image Results Full Width -->
-                <div class="image-results-container hidden" id="image-results">
-                    <div class="img-box">
-                        <h4>Original Image</h4>
-                        <img id="img-orig" src="" alt="Original">
+                    <div class="card" style="padding:15px;">
+                        <div class="mono text-muted" style="font-size:11px;"># INTEGRITY</div>
+                        <div style="font-size:18px; margin:5px 0;">SHA-256</div>
+                        <div class="mono text-success" style="font-size:11px;">● READY</div>
                     </div>
-                    <div class="img-box error-border">
-                        <h4>ECB Mode <span class="badge danger">Vulnerable</span></h4>
-                        <img id="img-ecb" src="" alt="ECB Encrypted">
-                    </div>
-                    <div class="img-box success-border">
-                        <h4>CBC Mode <span class="badge success">Secure</span></h4>
-                        <img id="img-cbc" src="" alt="CBC Encrypted">
+                    <div class="card" style="padding:15px;">
+                        <div class="mono text-muted" style="font-size:11px;">✍ AUTHENTICATION</div>
+                        <div style="font-size:18px; margin:5px 0;">DIGITAL SIGNATURE</div>
+                        <div class="mono text-success" style="font-size:11px;">● READY</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Phase 2: Asymmetric Cryptography -->
-            <div id="phase2" class="view-section">
-                <div class="cards-grid">
-                    <div class="card glass">
-                        <h3>Diffie-Hellman & MITM Attack</h3>
-                        <p>Simulate DH key exchange and observe Eve intercepting unauthenticated exchanges.</p>
-                        <button id="dh-btn" class="action-btn">Simulate Key Exchange</button>
-                        <div class="terminal hidden" id="dh-terminal"></div>
-                    </div>
+            <!-- PHASE 1: Symmetric Encryption -->
+            <div id="phase1" class="page">
+                <h2>PHASE 01 // SYMMETRIC ENCRYPTION</h2>
+                <p class="text-secondary" style="margin-bottom:30px;">Protect the academic transcript using symmetric encryption and analyze AES, 3-DES, ECB, CBC and the avalanche effect.</p>
 
-                    <div class="card glass">
-                        <h3>RSA Hybrid Encryption</h3>
-                        <p>Generate an AES session key and encapsulate it securely using RSA public-key cryptography.</p>
-                        <button id="rsa-hybrid-btn" class="action-btn">Test Hybrid Encryption</button>
-                        <div class="terminal hidden" id="rsa-hybrid-terminal"></div>
+                <!-- Overview -->
+                <div class="card">
+                    <div class="card-title">WHAT IS SYMMETRIC ENCRYPTION?</div>
+                    <p>Symmetric encryption uses the same secret key for both encryption and decryption.</p>
+                    <div class="flow-diagram">
+                        <div class="flow-node text-cyan mono">SECRET KEY</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node">PLAINTEXT</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node">ENCRYPTION</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node text-danger">CIPHERTEXT</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node">DECRYPTION</div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-node text-success">PLAINTEXT</div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Phase 3: Integrity -->
-            <div id="phase3" class="view-section">
-                <div class="cards-grid">
-                    <div class="card glass">
-                        <h3>SHA-256 Hashing</h3>
-                        <p>Compute cryptographic hashes to guarantee data integrity.</p>
-                        <div class="input-group">
-                            <textarea id="hash-input" class="text-input" rows="3" placeholder="Enter text to hash..."></textarea>
+                <!-- Benchmark -->
+                <div class="card">
+                    <div class="card-title">AES vs 3-DES PERFORMANCE BENCHMARK</div>
+                    <div class="grid-2">
+                        <div>
+                            <div class="dropzone" onclick="document.getElementById('p1-file').click()">
+                                <div class="dropzone-icon">📄</div>
+                                <div class="dropzone-text">Click to select Academic Document<br><span style="font-size:11px;">Supported: TXT, PDF, PNG, BIN</span></div>
+                                <input type="file" id="p1-file" onchange="updateFileInfo()">
+                            </div>
+                            <div class="mono text-muted" style="font-size:12px; margin-bottom:20px;">
+                                <span id="file-name">No file selected</span> <span id="file-size"></span>
+                            </div>
+                            <button class="primary" onclick="runBenchmark()">▶ RUN BENCHMARK</button>
+                            <p class="text-muted" style="font-size:11px; margin-top:10px;">Benchmark results are measured locally and may vary depending on hardware.</p>
                         </div>
-                        <button id="hash-btn" class="action-btn">Compute Hash</button>
-                        <div class="terminal hidden" id="hash-terminal"></div>
-                    </div>
-
-                    <div class="card glass">
-                        <h3>Tamper Detection</h3>
-                        <p>Simulate a tampering attempt where a bit/byte is flipped in transit.</p>
-                        <div class="input-group">
-                            <textarea id="tamper-input" class="text-input" rows="2" placeholder="Original data..."></textarea>
+                        <div>
+                            <table>
+                                <tr><th>Algorithm</th><th>Encrypt Time</th><th>Status</th></tr>
+                                <tr>
+                                    <td>AES-128</td>
+                                    <td id="res-aes">--</td>
+                                    <td class="text-success">Modern Standard</td>
+                                </tr>
+                                <tr>
+                                    <td>3-DES</td>
+                                    <td id="res-des">--</td>
+                                    <td class="text-warning">Legacy (Slow)</td>
+                                </tr>
+                            </table>
                         </div>
-                        <button id="tamper-btn" class="action-btn">Simulate Tampering</button>
-                        <div class="terminal hidden" id="tamper-terminal"></div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Phase 4: Authentication & PKI -->
-            <div id="phase4" class="view-section">
-                <div class="cards-grid">
-                    <div class="card glass">
-                        <h3>Digital Signatures</h3>
-                        <p>Sign data with RSA private key and verify authenticity with public key.</p>
-                        <div class="input-group">
-                            <input type="text" id="sig-input" class="text-input" placeholder="Data to sign">
+                <!-- Avalanche -->
+                <div class="card">
+                    <div class="card-title">🔬 AVALANCHE EFFECT</div>
+                    <p>Demonstrating how flipping a single bit alters ~50% of the ciphertext bits in AES.</p>
+                    <div class="grid-2">
+                        <div>
+                            <label class="mono text-muted" style="font-size:12px;">ORIGINAL PLAINTEXT</label>
+                            <input type="text" id="av-original" value="Academic Transcript 2026">
+                            
+                            <label class="mono text-muted" style="font-size:12px; margin-top:15px;">ONE-BIT MODIFICATION</label>
+                            <input type="text" id="av-modified" value="Academic Transcript 2027">
+                            
+                            <button class="primary" onclick="runAvalanche()" style="margin-top:15px;">▶ ANALYZE BITS</button>
                         </div>
-                        <button id="signature-btn" class="action-btn">Sign & Verify</button>
-                        <div class="terminal hidden" id="signature-terminal"></div>
+                        <div>
+                            <div class="mono" style="font-size:12px; margin-bottom:15px;">
+                                <span class="text-muted">ORIGINAL CIPHERTEXT:</span><br>
+                                <span id="av-ct1" style="color:var(--main-text)">waiting...</span>
+                            </div>
+                            <div class="mono" style="font-size:12px; margin-bottom:15px;">
+                                <span class="text-muted">MODIFIED CIPHERTEXT:</span><br>
+                                <span id="av-ct2" class="text-danger">waiting...</span>
+                            </div>
+                            <div class="mono" style="font-size:12px; margin-bottom:5px;">
+                                DIFFERENT BITS: <span id="av-diff-text" class="text-cyan">0%</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar" id="av-progress"></div>
+                            </div>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="card glass">
-                        <h3>X.509 Certificates</h3>
-                        <p>Generate and view self-signed Root CA and University digital certificates.</p>
-                        <button id="cert-btn" class="action-btn">Issue Certificate</button>
-                        <div class="terminal hidden" id="cert-terminal"></div>
-                    </div>
+                <!-- ECB vs CBC -->
+                <div class="card">
+                    <div class="card-title">ECB vs CBC — IMAGE PATTERN LEAKAGE</div>
+                    <p>ECB encrypts identical plaintext blocks into identical ciphertext blocks, which reveals visual patterns. CBC chains blocks to hide patterns.</p>
                     
-                    <div class="card glass">
-                        <h3>Kerberos Authentication</h3>
-                        <p>Simulate ticket-granting authentication flow for secure access.</p>
-                        <button id="kerberos-btn" class="action-btn">Run Kerberos Flow</button>
-                        <div class="terminal hidden" id="kerberos-terminal"></div>
+                    <button class="primary" onclick="document.getElementById('p1-image').click()" style="margin-bottom:15px;">CHOOSE IMAGE</button>
+                    <input type="file" id="p1-image" accept="image/png, image/jpeg" style="display:none;" onchange="encryptImage()">
+                    
+                    <div class="grid-3" style="text-align:center;">
+                        <div>
+                            <div class="mono text-muted" style="margin-bottom:10px;">ORIGINAL</div>
+                            <div id="img-orig-container" style="height:150px; border:1px dashed var(--border-color); display:flex; align-items:center; justify-content:center;">None</div>
+                        </div>
+                        <div>
+                            <div class="mono text-muted" style="margin-bottom:10px;">ECB</div>
+                            <div style="height:150px; border:1px solid var(--danger); display:flex; align-items:center; justify-content:center; background:var(--bg-color);">
+                                <img id="img-ecb" style="max-height:100%; display:none;">
+                            </div>
+                            <div class="mono text-danger" style="font-size:11px; margin-top:5px; display:none;" id="lbl-ecb">⚠ PATTERN LEAKAGE DETECTED</div>
+                        </div>
+                        <div>
+                            <div class="mono text-muted" style="margin-bottom:10px;">CBC</div>
+                            <div style="height:150px; border:1px solid var(--success); display:flex; align-items:center; justify-content:center; background:var(--bg-color);">
+                                <img id="img-cbc" style="max-height:100%; display:none;">
+                            </div>
+                            <div class="mono text-success" style="font-size:11px; margin-top:5px; display:none;" id="lbl-cbc">✓ PATTERN HIDDEN</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- PHASE 2: Asymmetric Encryption -->
+            <div id="phase2" class="page">
+                <h2>PHASE 02 // ASYMMETRIC CRYPTOGRAPHY & KEY EXCHANGE</h2>
+                
+                <!-- Hybrid -->
+                <div class="card">
+                    <div class="card-title">RSA HYBRID ENCRYPTION</div>
+                    <p>RSA is too slow to encrypt the entire transcript. Instead, RSA protects the fast AES session key.</p>
+                    <div class="grid-2">
+                        <div class="flow-vertical" style="align-items:flex-start;">
+                            <div class="mono text-muted">UNIVERSITY</div>
+                            <div class="flow-arrow-down"></div>
+                            <div class="flow-node text-cyan" style="padding:10px;">AES SESSION KEY</div>
+                            <div class="flow-arrow-down"></div>
+                            <div class="flow-node">ENCRYPT WITH RSA PUBLIC KEY</div>
+                            <div class="flow-arrow-down"></div>
+                            <div class="flow-node text-danger">ENCRYPTED SESSION KEY</div>
+                        </div>
+                        <div>
+                            <button class="primary" onclick="simHybrid()">▶ GENERATE & ENCRYPT KEY</button>
+                            <div class="mono" style="font-size:12px; margin-top:20px;">
+                                <div id="hy-aes" style="margin-bottom:10px;">AES Key: waiting...</div>
+                                <div id="hy-enc" class="text-danger" style="margin-bottom:10px; word-break:break-all;">RSA Encrypted: waiting...</div>
+                                <div id="hy-dec" style="margin-bottom:10px;">Recovered: waiting...</div>
+                                <div id="hy-res"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DH -->
+                <div class="card">
+                    <div class="card-title">DIFFIE-HELLMAN KEY EXCHANGE</div>
+                    <div class="grid-3" style="text-align:center;">
+                        <div class="card" style="background:var(--bg-color)">
+                            <div style="font-size:30px;">🏫</div>
+                            <div class="mono text-cyan">UNIVERSITY (A)</div>
+                            <div class="mono text-muted" style="margin-top:10px; font-size:11px;">Private A / Public A</div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; justify-content:center;">
+                            <button class="primary" onclick="simDH()">▶ EXECUTE EXCHANGE</button>
+                        </div>
+                        <div class="card" style="background:var(--bg-color)">
+                            <div style="font-size:30px;">👨‍🎓</div>
+                            <div class="mono text-cyan">STUDENT (B)</div>
+                            <div class="mono text-muted" style="margin-top:10px; font-size:11px;">Private B / Public B</div>
+                        </div>
+                    </div>
+                    <div style="text-align:center; margin-top:10px;" class="mono text-success" id="dh-res"></div>
+                    <div class="grid-2 mono" style="font-size:11px; margin-top:20px; text-align:center;">
+                        <div>UNIVERSITY SHARED SECRET<br><span id="dh-a" class="text-cyan">--</span></div>
+                        <div>STUDENT SHARED SECRET<br><span id="dh-b" class="text-cyan">--</span></div>
+                    </div>
+                </div>
+
+                <!-- MITM -->
+                <div class="card" style="border-color:var(--danger)">
+                    <div class="card-title text-danger">⚠ MAN-IN-THE-MIDDLE ATTACK LAB</div>
+                    <p>Unauthenticated Diffie-Hellman allows an attacker to establish separate shared secrets with each party.</p>
+                    <div class="grid-3" style="text-align:center;">
+                        <div>
+                            <div style="font-size:30px;">🏫</div>
+                            <div class="mono text-muted">UNIVERSITY</div>
+                        </div>
+                        <div>
+                            <div style="font-size:30px;">☠</div>
+                            <div class="mono text-danger">ATTACKER</div>
+                        </div>
+                        <div>
+                            <div style="font-size:30px;">👨‍🎓</div>
+                            <div class="mono text-muted">STUDENT</div>
+                        </div>
+                    </div>
+                    <div style="text-align:center; margin-top:20px;">
+                        <button style="border-color:var(--danger); color:var(--danger)" onclick="simMITM()">SIMULATE MITM</button>
+                    </div>
+                    <div class="grid-2 mono" style="font-size:11px; margin-top:20px; text-align:center;">
+                        <div>UNI THINKS SHARED SEC:<br><span id="mitm-a" class="text-danger">--</span></div>
+                        <div>STUDENT THINKS SHARED SEC:<br><span id="mitm-b" class="text-danger">--</span></div>
+                    </div>
+                    <div style="text-align:center; margin-top:15px;" class="mono text-danger" id="mitm-res"></div>
+                    
+                    <div style="margin-top:20px; padding:15px; background:rgba(0,230,118,0.1); border-left:3px solid var(--success)">
+                        <div class="mono text-success" style="font-size:12px;">MITIGATION:</div>
+                        <ul style="margin:5px 0 0 0; font-size:13px; color:var(--success)">
+                            <li>Digital Signatures</li>
+                            <li>Certificate Validation (PKI)</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- PHASE 3: Integrity -->
+            <div id="phase3" class="page">
+                <h2>PHASE 03 // DOCUMENT INTEGRITY VERIFICATION</h2>
+                
+                <div class="grid-2">
+                    <!-- Hashing -->
+                    <div class="card">
+                        <div class="card-title">SHA-256 HASH GENERATION</div>
+                        <label class="mono text-muted" style="font-size:12px;">ACADEMIC TRANSCRIPT DATA</label>
+                        <textarea id="p3-data" rows="4">Academic Transcript: SGPA 8.42</textarea>
+                        <button class="primary" onclick="generateHash()">▶ COMPUTE HASH</button>
+                        
+                        <div style="margin-top:20px;" class="mono text-muted">ORIGINAL HASH</div>
+                        <div id="p3-hash-res" class="mono text-cyan" style="word-break:break-all; font-size:14px;">waiting...</div>
+                    </div>
+
+                    <!-- Tampering -->
+                    <div class="card" style="border-color:var(--danger)">
+                        <div class="card-title text-danger">⚠ TAMPERING DEMONSTRATION</div>
+                        <label class="mono text-muted" style="font-size:12px;">TAMPER WITH GRADE</label>
+                        <input type="text" id="p3-tamp" value="Academic Transcript: SGPA 9.42">
+                        <button style="border-color:var(--danger); color:var(--danger)" onclick="tamperHash()">SIMULATE TAMPERING</button>
+                        
+                        <div style="margin-top:20px;" class="mono text-muted">MODIFIED HASH</div>
+                        <div id="p3-tamp-res" class="mono text-danger" style="word-break:break-all; font-size:14px;">waiting...</div>
+                        
+                        <div id="p3-tamp-status" class="mono" style="margin-top:15px; font-weight:bold;"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Phase 5: Pipeline Simulation -->
-            <div id="phase5" class="view-section">
-                <div class="simulation-container">
-                    <div class="server-side glass">
-                        <h3>University Server (Sender)</h3>
-                        <div class="terminal" id="server-terminal">
-                            <div class="log-line">Waiting for connection...</div>
+            <!-- PHASE 4: Authentication -->
+            <div id="phase4" class="page">
+                <h2>PHASE 04 // AUTHENTICATION & DIGITAL IDENTITY</h2>
+
+                <div class="grid-2">
+                    <!-- Signatures -->
+                    <div class="card">
+                        <div class="card-title">DIGITAL SIGNATURE</div>
+                        <div class="flow-vertical" style="align-items:flex-start;">
+                            <div class="mono text-muted">DOCUMENT HASH</div>
+                            <div class="flow-arrow-down" style="height:10px"></div>
+                            <div class="flow-node text-cyan" style="padding:5px;">UNI PRIVATE KEY</div>
+                            <div class="flow-arrow-down" style="height:10px"></div>
+                            <div class="flow-node text-success" style="padding:5px;">DIGITAL SIGNATURE</div>
+                        </div>
+                        <button class="primary" style="margin-top:20px;" onclick="genSig()">▶ SIGN DOCUMENT</button>
+                        
+                        <div class="mono" style="margin-top:20px; font-size:12px;">
+                            <span class="text-muted">Signature:</span><br>
+                            <span id="p4-sig-res" class="text-cyan" style="word-break:break-all;">--</span><br><br>
+                            <span id="p4-sig-verify"></span>
                         </div>
                     </div>
-                    <div class="client-side glass">
-                        <h3>Student Client (Receiver)</h3>
-                        <div class="terminal" id="client-terminal">
-                            <div class="log-line">Disconnected.</div>
+
+                    <!-- Certificate -->
+                    <div class="card">
+                        <div class="card-title">DIGITAL CERTIFICATE (X.509)</div>
+                        <button class="primary" onclick="genCert()">▶ GENERATE CERTIFICATE</button>
+                        <div id="p4-cert-res" class="mono" style="margin-top:20px; font-size:12px; display:none;">
+                            <span class="text-muted">Subject:</span> <span class="text-main" id="c-sub"></span><br>
+                            <span class="text-muted">Issuer:</span> <span class="text-main" id="c-iss"></span><br>
+                            <span class="text-muted">Valid:</span> <span class="text-success">VALID</span><br>
+                            <textarea id="c-pem" rows="6" readonly style="margin-top:10px; font-size:10px;"></textarea>
                         </div>
                     </div>
                 </div>
-                <div class="controls-bar">
-                    <button id="start-simulation" class="action-btn primary" style="max-width: 300px; margin: 0 auto;">Initiate Secure Exchange</button>
+
+                <!-- Kerberos -->
+                <div class="card">
+                    <div class="card-title">KERBEROS TICKET-GRANTING EXCHANGE</div>
+                    <button class="primary" onclick="simKerb()">▶ SIMULATE KERBEROS</button>
+                    <div id="kerb-steps" style="margin-top:20px; font-family:'JetBrains Mono'; font-size:12px; color:var(--secondary-text)">
+                        <!-- Steps injected here -->
+                    </div>
                 </div>
             </div>
+
+            <!-- PHASE 5: Pipeline -->
+            <div id="phase5" class="page">
+                <h2 style="font-size:28px;">PHASE 05 // SECURE EXCHANGE PIPELINE</h2>
+                <h3 style="color:var(--secondary-text)">University → Secure Gateway → Student</h3>
+                
+                <div style="text-align: center; margin: 20px 0;">
+                    <button class="primary" id="btn-pipeline" style="padding:15px 30px; font-size:16px;" onclick="startPipeline()">▶ RUN COMPLETE PIPELINE</button>
+                </div>
+                
+                <!-- Dual Simulation Consoles -->
+                <div class="grid-2" style="margin-top: 20px;">
+                    <div class="card" style="padding: 15px; border-color: rgba(0, 229, 255, 0.5);">
+                        <div class="card-title" style="font-size: 13px; margin-bottom: 10px; border-bottom: none;"><span style="font-size: 16px;">🏛️</span> UNIVERSITY SERVER NODE</div>
+                        <div class="system-log" id="p5-server-console" style="margin-top: 0; height: 220px; background: rgba(0,0,0,0.3);"></div>
+                    </div>
+                    <div class="card" style="padding: 15px; border-color: rgba(0, 229, 255, 0.5);">
+                        <div class="card-title" style="font-size: 13px; margin-bottom: 10px; border-bottom: none;"><span style="font-size: 16px;">🎓</span> STUDENT CLIENT NODE</div>
+                        <div class="system-log" id="p5-client-console" style="margin-top: 0; height: 220px; background: rgba(0,0,0,0.3);"></div>
+                    </div>
+                </div>
+
+                <!-- Visual Pipeline -->
+                <div style="display: flex; justify-content: center; margin-top: 20px;">
+                    <div class="card" style="display:flex; flex-direction:column; align-items:center; width: 60%; max-width: 600px;">
+                        <div style="font-size:30px;">🏫</div>
+                        <div class="mono text-cyan" style="margin-bottom:10px;">UNIVERSITY</div>
+                        
+                        <div class="flow-node" id="n-doc">📄 PLAINTEXT DOCUMENT</div>
+                        <div class="flow-arrow-down"></div>
+                        <div class="flow-node" id="n-aes">🔐 AES-128 ENCRYPTION</div>
+                        <div class="flow-arrow-down"></div>
+                        <div class="flow-node" id="n-rsa">🔑 RSA KEY EXCHANGE</div>
+                        <div class="flow-arrow-down"></div>
+                        <div class="flow-node" id="n-hash"># SHA-256 HASH</div>
+                        <div class="flow-arrow-down"></div>
+                        <div class="flow-node" id="n-sign">✍ DIGITAL SIGNATURE</div>
+                        <div class="flow-arrow-down"></div>
+                        
+                        <div style="width:100%; text-align:center; padding:10px; border-top:2px dashed var(--primary-cyan); border-bottom:2px dashed var(--primary-cyan); margin:5px 0;" class="mono text-cyan" id="n-transmit">
+                            🔒 SECURE CHANNEL
+                        </div>
+                        
+                        <div class="flow-arrow-down"></div>
+                        <div class="flow-node" id="n-vsign">✓ VERIFY SIGNATURE</div>
+                        <div class="flow-arrow-down"></div>
+                        <div class="flow-node" id="n-vhash">✓ VERIFY HASH</div>
+                        <div class="flow-arrow-down"></div>
+                        <div class="flow-node" id="n-dec">🔓 AES DECRYPTION</div>
+                        
+                        <div class="mono text-cyan" style="margin-top:10px;">STUDENT</div>
+                        <div style="font-size:30px;">👨‍🎓</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ATTACK LAB -->
+            <div id="attack" class="page">
+                <h2>SECURITY ANALYSIS // ATTACK LAB</h2>
+                <div class="grid-3">
+                    <div class="card" style="border-color:var(--danger)">
+                        <h3 class="text-danger" style="margin-top:0">MITM ATTACK</h3>
+                        <p class="text-muted" style="font-size:12px;">Threat: Authentication</p>
+                        <button style="border-color:var(--danger); color:var(--danger)" onclick="nav('phase2', this)">GO TO SIMULATION</button>
+                    </div>
+                    <div class="card" style="border-color:var(--danger)">
+                        <h3 class="text-danger" style="margin-top:0">DATA TAMPERING</h3>
+                        <p class="text-muted" style="font-size:12px;">Threat: Integrity</p>
+                        <button style="border-color:var(--danger); color:var(--danger)" onclick="nav('phase3', this)">GO TO SIMULATION</button>
+                    </div>
+                    <div class="card" style="border-color:var(--danger)">
+                        <h3 class="text-danger" style="margin-top:0">ECB LEAKAGE</h3>
+                        <p class="text-muted" style="font-size:12px;">Threat: Confidentiality</p>
+                        <button style="border-color:var(--danger); color:var(--danger)" onclick="nav('phase1', this)">GO TO SIMULATION</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PACKET ANALYSIS -->
+            <div id="packet" class="page">
+                <h2>SECURITY ANALYSIS // PACKET ANALYSIS</h2>
+                <div class="card">
+                    <div class="card-title">EAVESDROPPER VIEW</div>
+                    <table>
+                        <tr><th>Protocol</th><th>Visible (Metadata)</th><th>Protected (Encrypted payload)</th></tr>
+                        <tr><td>TCP/IP</td><td class="text-warning">Source IP, Dest IP, Port</td><td class="text-success">N/A</td></tr>
+                        <tr><td>TLS/AES</td><td class="text-warning">Packet Size, Timing</td><td class="text-success">🔒 Academic Transcript</td></tr>
+                        <tr><td>RSA</td><td class="text-warning">Public Keys</td><td class="text-success">🔒 AES Session Key</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ALGORITHM COMPARISON -->
+            <div id="compare" class="page">
+                <h2>SECURITY ANALYSIS // ALGORITHM COMPARISON</h2>
+                <div class="card">
+                    <table>
+                        <tr><th>Algorithm</th><th>Type</th><th>Key Size</th><th>Purpose</th><th>Security</th></tr>
+                        <tr><td class="text-cyan">AES-128</td><td>Symmetric</td><td>128-bit</td><td>Bulk Data Encryption</td><td class="text-success">Modern Standard</td></tr>
+                        <tr><td>3-DES</td><td>Symmetric</td><td>112/168-bit</td><td>Legacy Data Enc.</td><td class="text-warning">Slow, Deprecated</td></tr>
+                        <tr><td class="text-cyan">RSA</td><td>Asymmetric</td><td>2048-bit</td><td>Key Exchange/Sign</td><td class="text-success">Secure</td></tr>
+                        <tr><td class="text-cyan">SHA-256</td><td>Hash</td><td>256-bit</td><td>Data Integrity</td><td class="text-success">Collision Resistant</td></tr>
+                    </table>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">REAL-WORLD MAPPING</div>
+                    <div class="mono" style="font-size:13px; line-height:2;">
+                        <span class="text-cyan">AES Encryption</span> → TLS / HTTPS / encrypted storage<br>
+                        <span class="text-cyan">RSA / PKI</span> → certificates / key management<br>
+                        <span class="text-cyan">Diffie-Hellman</span> → secure key agreement<br>
+                        <span class="text-cyan">SHA-256</span> → integrity verification<br>
+                        <span class="text-cyan">Digital Signature</span> → signed documents / PKI<br>
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
-    <script src="app.js"></script>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
